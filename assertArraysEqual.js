@@ -15,7 +15,7 @@ const assertArraysEqual = function(arr1, arr2) {
     console.log(`💃💃💃Yay!! They're equal!💃💃💃`);
     return;
   }
-  console.log(`🙅🙅🙅Nah!! They aren't euqal!🙅🙅🙅`);
+  console.log(`🙅🙅🙅Nah!! They're not equal!🙅🙅🙅`);
 };
 
 // test codes
