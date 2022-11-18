@@ -12,10 +12,10 @@ const eqArrays = function(arr1, arr2) {
 
 const assertArraysEqual = function(arr1, arr2) {
   if (eqArrays(arr1, arr2)) {
-    console.log(`💃💃💃Yay!! They're equal!💃💃💃`);
+    console.log(`💚💚💚  EQUAL!  💚💚💚 ${JSON.stringify(arr1)} === ${JSON.stringify(arr2)}`);
     return;
   }
-  console.log(`🙅🙅🙅Nah!! They're not equal!🙅🙅🙅`);
+  console.log(`💔💔💔NOT EQUAL!💔💔💔 ${JSON.stringify(arr1)} !== ${JSON.stringify(arr2)}`);
 };
 
 // test codes
