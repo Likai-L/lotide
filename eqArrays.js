@@ -66,7 +66,7 @@ const eqArrays = function(arr1, arr2) {
   return true;
 };
 
-// test cases, should all pass
+// test cases
 assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true);
 assertEqual(eqArrays([1, 2, 3], [3, 2, 1]), false);
 assertEqual(eqArrays(["1", "2", "3"], ["1", "2", "3"]), true);
@@ -74,3 +74,9 @@ assertEqual(eqArrays(["1", "2", "3"], ["1", "2", 3]), false);
 assertEqual(eqArrays([[2, 3], [4]], [[2, 3], [4]]), true);
 assertEqual(eqArrays([[2, 3], [4]], [[2, 3], [4, 5]]), false);
 assertEqual(eqArrays([[2, 3], [4]], [[2, 3], 4]), false);
+const array1 = [1, 9, [19, 6, [87, 9, [11, {name: "Milo", breed: "dog"}, 0], 90]]];
+const array2 = [1, 9, [19, 6, [87, 9, [11, {breed: "dog", name: "Milo"}, 0], 90]]];
+assertEqual(eqArrays(array1, array2), true);
+const array3 = [6, [8, [55, [], [13, [{person1: {name: "Lana", siblings: [{name: "Charlie", age: 29}, {name: "Charoline", age: 34}], age: 37}, person2: "Taylor"}, {}], 89]]], 90];
+const array4 = [6, [8, [55, [], [13, [{person1: {age: 37, name: "Lana", siblings: [{name: "Charlie", age: 29}, {age: 34, name: "Charoline"}]}, person2: "Taylor"}, {}], 89]]], 90];
+assertEqual(eqArrays(array3, array4), true);
