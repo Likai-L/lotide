@@ -1,28 +1,4 @@
-const eqArrays = function(arr1, arr2) {
-  if (arr1.length !== arr2.length) {
-    return false;
-  }
-  for (let i in arr1) {
-    if (arr1[i] !== arr2[i]) {
-      return false;
-    }
-  }
-  return true;
-};
-
-const assertArraysEqual = function(arr1, arr2) {
-  if (eqArrays(arr1, arr2)) {
-    console.log(`💚💚💚  EQUAL!  💚💚💚 ${JSON.stringify(arr1)} === ${JSON.stringify(arr2)}`);
-    return;
-  }
-  console.log(`💔💔💔NOT EQUAL!💔💔💔 ${JSON.stringify(arr1)} !== ${JSON.stringify(arr2)}`);
-};
-
-// test if a string is a alphabetic letter
-const isAlpha = function(str) {
-  return /^[a-zA-Z()]+$/.test(str);
-};
-
+const isAlpha = require("./isAlpha");
 const letterPositions = function(sentence) {
   const results = {};
   sentence = sentence.toLowerCase();
@@ -38,10 +14,11 @@ const letterPositions = function(sentence) {
   return results;
 };
 
-// test code
-console.log(letterPositions("hello"));
-console.log(letterPositions("lighthouse in the house"));
-assertArraysEqual(letterPositions("hello").h, [0]);
-assertArraysEqual(letterPositions("hello").e, [1]);
-assertArraysEqual(letterPositions("hello").l, [2, 3]);
-assertArraysEqual(letterPositions("hello").o, [4]);
+module.exports = letterPositions;
+// // test code
+// console.log(letterPositions("hello"));
+// console.log(letterPositions("lighthouse in the house"));
+// assertArraysEqual(letterPositions("hello").h, [0]);
+// assertArraysEqual(letterPositions("hello").e, [1]);
+// assertArraysEqual(letterPositions("hello").l, [2, 3]);
+// assertArraysEqual(letterPositions("hello").o, [4]);
