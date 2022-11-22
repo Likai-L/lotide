@@ -1,41 +1,3 @@
-const assertEqual = function(actual, expected) {
-  if (actual === expected) {
-    console.log(`🤑🤑Assertion Passed🤑🤑: [${actual}] === [${expected}]`);
-  } else {
-    console.log(`💀💀Assertion Failed💀💀: [${actual}] !== [${expected}]`);
-  }
-};
-
-const eqObjects = function(object1, object2) {
-  if (Object.keys(object1).length !== Object.keys(object2).length) {
-    return false;
-  }
-  for (let key in object1) {
-    if (typeof object1[key] !== typeof object2[key]) {
-      return false;
-    }
-    if (Array.isArray(object1[key]) !== Array.isArray(object2[key])) {
-      return false;
-    }
-    if (Array.isArray(object1[key]) && Array.isArray(object2[key])) {
-      if (!eqArrays(object1[key], object2[key])) {
-        return false;
-      }
-      continue;
-    }
-    if (typeof object1[key] === "object") {
-      if (!eqObjects(object1[key], object2[key])) {
-        return false;
-      }
-      continue;
-    }
-    if (object1[key] !== object2[key]) {
-      return false;
-    }
-  }
-  return true;
-};
-
 const eqArrays = function(arr1, arr2) {
   if (arr1.length !== arr2.length) {
     return false;
@@ -53,12 +15,18 @@ const eqArrays = function(arr1, arr2) {
       }
       continue;
     }
-    if (typeof arr1[i] === "object") {
-      if (!eqObjects(arr1[i], arr2[i])) {
-        return false;
-      }
-      continue;
-    }
+    // This statement deals with cases where there are obejcts nested inside 
+    // arrays, but this would cause circular dependency leading to a bug
+    // where eqArrays can't ne recognized, so it's better to merge eqArrays and 
+    // eqObjects into one single function that compares all obejecs including arrays. 
+    // However, we're required to write eqArrays and eqObjects seperately, so 
+    // for now, this function only deals with nested arrays
+    // if (typeof arr1[i] === "object") {
+    //   if (!eqObjects(arr1[i], arr2[i])) {
+    //     return false;
+    //   }
+    //   continue;
+    // }
     if (arr1[i] !== arr2[i]) {
       return false;
     }
@@ -66,17 +34,4 @@ const eqArrays = function(arr1, arr2) {
   return true;
 };
 
-// test cases
-assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true);
-assertEqual(eqArrays([1, 2, 3], [3, 2, 1]), false);
-assertEqual(eqArrays(["1", "2", "3"], ["1", "2", "3"]), true);
-assertEqual(eqArrays(["1", "2", "3"], ["1", "2", 3]), false);
-assertEqual(eqArrays([[2, 3], [4]], [[2, 3], [4]]), true);
-assertEqual(eqArrays([[2, 3], [4]], [[2, 3], [4, 5]]), false);
-assertEqual(eqArrays([[2, 3], [4]], [[2, 3], 4]), false);
-const array1 = [1, 9, [19, 6, [87, 9, [11, {name: "Milo", breed: "dog"}, 0], 90]]];
-const array2 = [1, 9, [19, 6, [87, 9, [11, {breed: "dog", name: "Milo"}, 0], 90]]];
-assertEqual(eqArrays(array1, array2), true);
-const array3 = [6, [8, [55, [], [13, [{person1: {name: "Lana", siblings: [{name: "Charlie", age: 29}, {name: "Charoline", age: 34}], age: 37}, person2: "Taylor"}, {}], 89]]], 90];
-const array4 = [6, [8, [55, [], [13, [{person1: {age: 37, name: "Lana", siblings: [{name: "Charlie", age: 29}, {age: 34, name: "Charoline"}]}, person2: "Taylor"}, {}], 89]]], 90];
-assertEqual(eqArrays(array3, array4), true);
+module.exports = eqArrays;
